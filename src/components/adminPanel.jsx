@@ -41,6 +41,7 @@ const AdminPanel = () => {
     const filterTodoIndex = allUserData.findIndex((el) => el.id === id);
     const allUsers = [...allUserData];
     allUsers[filterTodoIndex].status = value;
+    localStorage.setItem("userData", JSON.stringify(allUsers));
     dispatch(toggleStatus(allUsers));
   };
 
@@ -49,6 +50,7 @@ const AdminPanel = () => {
     const data = [...allUserData];
     const deletedTask = data.filter((el) => el.id === id);
     const dataAfterDelete = allUserData.filter((el) => el.id !== id);
+    localStorage.setItem("userData", JSON.stringify(dataAfterDelete));
     dispatch(deleteUser(dataAfterDelete));
     toast.success(`"${deletedTask[0].name}" is deleted`);
   };
@@ -79,6 +81,8 @@ const AdminPanel = () => {
 
     const newEditDataIndex = newData.findIndex((el) => el.id === editId);
     newData[newEditDataIndex] = newEditData;
+    localStorage.setItem("userData", JSON.stringify(newData));
+
     dispatch(editUser(newData));
     toast.success(`${newEditData.name} is successfully updated`);
     setEditId(null);
@@ -93,6 +97,7 @@ const AdminPanel = () => {
     } else {
       toast.success(`Deleted checked row `);
     }
+    localStorage.setItem("userData",JSON.stringify(filterData))
     dispatch(deleteUser(filterData));
   };
 
@@ -107,6 +112,8 @@ const AdminPanel = () => {
         allUsers[i].status = value;
       }
     }
+    localStorage.setItem("userData",JSON.stringify(allUsers))
+
     dispatch(allChecked(allUsers));
   };
 
